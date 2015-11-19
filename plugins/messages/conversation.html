@@ -1,0 +1,26 @@
+
+<script type="text/template" id="header-icon-right-content">
+    
+</script>
+<div id="header-action-contact" class="header-action">
+    <a href="#messages/contact/<%= otherUser %>"><img style="border-radius: 50%" src="<%= userPicture %>"></a>
+</div>
+            <div >
+                <% previousDate = ""; %>
+
+                <%= MM.plugins.messages._renderConversationArea(messages, otherUser, previousDate) %>
+
+            </div>
+
+            <div >
+                <form id="message-send-form">
+                    <div>
+                        <input type="text" name="message" id="message-text"></span>
+                        <input type="submit" value="<%= MM.lang.s('send') %>">
+                    </div>
+                </form>
+            </div>
+
+        
+   
+

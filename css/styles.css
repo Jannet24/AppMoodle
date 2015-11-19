@@ -1,0 +1,91 @@
+/* - User grades table
+-------------------------------------------------------------------------- */
+.user-grade {
+  border-collapse: collapse;
+  line-height: 20px;
+  width: 100%;
+  border-top: 1px solid #eee;
+}
+.user-grade tr {
+  border-bottom: 1px solid #eee;
+}
+.user-grade th,
+.user-grade td {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  vertical-align: top;
+}
+.user-grade thead th {
+  padding-left: 10px;
+  vertical-align: bottom;
+}
+.user-grade tbody th {
+  font-weight: normal;
+}
+.user-grade th.b1b {
+  padding-left: 20px;
+}
+.user-grade th.item {
+  padding-left: 40px;
+}
+.user-grade th.baggt {
+  padding-left: 40px;
+}
+.user-grade th img {
+  margin-left: -20px;
+  float: left;
+}
+.user-grade .b1l {
+  width: 20px;
+  min-width: 20px;
+}
+.user-grade .b1t,
+.user-grade .baggt {
+  font-weight: bold;
+}
+.user-grade .itemcenter {
+  padding-left: 10px;
+  white-space: nowrap;
+}
+.user-grade .feedbacktext {
+  padding-left: 10px;
+}
+.user-grade .feedbacktext .no-overflow {
+  overflow: auto;
+}
+.user-grade .dimmed_text,
+.user-grade .hidden,
+.user-grade .hidden a {
+  color: #aaa;
+}
+.user-grade .oddd1,
+.user-grade .oddd3,
+.user-grade .evend3 {
+  background-color: #eee;
+}
+.user-grade .oddd1.b1b,
+.user-grade .oddd3.b1b,
+.user-grade .evend3.b1b,
+.user-grade .oddd1.b1l,
+.user-grade .oddd3.b1l,
+.user-grade .evend3.b1l {
+  border-top: 1px solid #fff;
+}
+.user-grade .oddd2,
+.user-grade .evend2,
+.user-grade .oddd4,
+.user-grade .evend4 {
+  background-color: #f9f9f9;
+}
+.user-grade .levelodd {
+  background-color: #eee;
+}
+.user-grade .levelodd.b1b,
+.user-grade .levelodd.b1l {
+  border-top: 1px solid #fff;
+}
+.user-grade .leveleven {
+  background-color: #fff;
+}

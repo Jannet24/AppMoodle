@@ -1,0 +1,19 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#" onclick="MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Foro</h1>
+</div>
+<div data-role="navbar">
+                <ul >
+                        <% _.each(courses, function(plugin) { %>
+                            <li><a href="<%= plugin.menuURL%><%= courseId %>"><%= plugin.nameToShow %></a></li>
+                        <%  }); %>
+
+                </ul>
+</div>
+<ul data-role="listview" data-inset="true">
+<% _.each(foros, function(foro) { %>
+            <li data-icon="info">
+                    <a class="discusion" data-courseId="<%= courseId%>" href="#forum/discussions/<%=foro.id%>"><img src="img/mod/forum.png" class="ui-li-icon"><%= foro.name %></a>
+            </li>             
+<%});%> 
+</ul>

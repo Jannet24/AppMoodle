@@ -1,0 +1,62 @@
+<!--<script type="text/template" id="header-icon-left-content">
+    <a href="#messages"><img src="plugins/messages/icon.png"></a>
+</script>-->
+
+<div id="header-action-recent"></div>
+<div>
+    <div>
+        <% if (MM.util.wsAvailable('local_mobile_core_message_search_contacts')) { %>
+        <form id="search-contacts" action="#">
+            <input type="search" id="search-text"><input type="submit" value="Buscar">
+        </form>
+        <% } %>
+
+        <div id="search-result">
+        </div>
+        <div id="contacts-list">
+            <% var types = ["online", "offline", "blocked", "strangers"]; %>
+            <% var displayed = []; %>
+
+            <% types.forEach(function(type) { %>
+            
+            <h4>
+                <% if (type == "online") { %>
+                    <%= MM.lang.s("onlinecontacts", "core", contacts[type].length) %>
+                <% } else if (type == "offline") { %>
+                    <%= MM.lang.s("offlinecontacts", "core", contacts[type].length) %>
+                <% } else if (type == "blocked") { %>
+                    <%= MM.lang.s("blockedusers", "core", contacts[type].length) %>
+                <% } else  { %>
+                    <%= MM.lang.s("others") %>
+                <% } %>
+            </h4>
+            
+           
+            
+            <% _.each(contacts[type], function(contact) { %>
+            <ul data-role="listview">
+            <%  contact.id = parseInt(contact.id) %>
+            <% var user = MM.plugins.messages.recentContactsIds[contact.id]; %>
+
+            <% if (displayed.indexOf(contact.id) > -1) return; %>
+            <% if (parseInt(contact.id, 10) == parseInt(MM.config.current_site.userid, 10)) return; %>
+            <% displayed.push(contact.id) %>
+                <li>
+                    <a href="#messages/conversation/<%= contact.id %>">
+                            <% if (user && user.profileimageurl) { %>
+                            <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>">
+                            <% } else if (contact.profileimageurl) { %>
+                            <img src="<%= MM.util.getMoodleFilePath(contact.profileimageurl) %>">
+                            <% } else { %>
+                            <img src="img/userimage.png">
+                            <% } %>
+                            <%= contact.fullname %>
+                    </a>
+                </li>
+            <% }); %>
+            </ul>
+            <% }); %>
+        </div>
+
+    </div>
+</div>

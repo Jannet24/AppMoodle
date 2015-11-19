@@ -1,0 +1,226 @@
+<div class="header-sub">
+    <div class="back-row">
+        <a onclick="window.history.back();"><img src="img/arrowleft.png"></a>
+    </div>
+    <div id="back-arrow-title" class="media">
+        <div class="img app-ico">
+            <img src="img/mod/assign.png" alt="img">
+        </div>
+        <div class="bd">
+            <h2><%= MM.util.formatText(assign.name) %></h2>
+            <% var qualifiArray = {}%>
+            <% if (typeof grade != 'undefined') { for (var i in grade.grades){  %>
+            <% qualifiArray[grade.grades[i].userid] = grade.grades[i].grade%>
+               <% }} %>
+            <% console.log(qualifiArray)%>
+            <% console.log(comment)%>
+            <% var ids = {}%>
+            <% if (typeof idGrades != 'undefined') { for (var i in idGrades){  %>
+            <% ids[idGrades[i].userid] = idGrades[i].id%>
+               <% }} %>
+            <% console.log(ids)%>
+
+            <% var comments = {}%>
+            <% if (typeof comment != 'undefined') { for (var i in comment){  %>
+            <% comments[comment[i].grade] = comment[i].commenttext%>
+               <% }} %>
+            <% console.log(comments)%>
+            <% console.log(listaUsuarios)%>
+            
+
+            
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="content-index">
+    <div class="path-mod-assign">
+        <div class="assign">
+            <div class="intro">
+                <% if (assign.intro) { %>
+                <%= MM.util.formatText(assign.intro) %>
+                <% } %>
+
+
+                <% if (assign.introattachments && assign.introattachments.length > 0) { %>
+
+                    <div class="attachments">
+                        <% _.each(assign.introattachments, function(attachment) { %>
+                        <% if (attachment.localpath) { %>
+                            <% var dImg = "reloadgrey"; %>
+                            <% } else { %>
+                            <% var dImg = "download"; %>
+                        <% } %>
+                        <div class="attachment media">
+                            <div class="content-actions app-icon">
+                                <img id="downimg-<%= attachment.id %>" src="img/<%= dImg %>.png" class="assign-download" data-downloadurl="<%= attachment.fileurl %>" data-filename="<%= attachment.filename %>" data-attachmentid="<%= attachment.id %>">
+                            </div>
+                            <div class="content-name">
+                                <div class="img app-ico">
+                                    <img src="img/files/<%= attachment.icon %>" alt="img">
+                                </div>
+                                <div class="bd">
+                                    <% if (!attachment.localpath) { %>
+                                    <a id="attachment-<%= attachment.id %>" class="assign-download" href="#" data-downloadurl="<%= attachment.fileurl %>" data-filename="<%= attachment.filename %>" data-attachmentid="<%= attachment.id %>">
+                                        <%= attachment.filename %>
+                                    </a>
+                                    <% } else { %>
+                                    <a id="attachment-<%= attachment.id %>" href="<%= attachment.localpath %>" rel="external"
+                                        ><%= attachment.filename %>
+                                    </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% }); %>
+                    </div>
+
+                <% } %>
+
+            </div>
+
+            <div class="info">
+
+                <% if (assign.allowsubmissionsfromdate) { %>
+                    <p>
+                        <span><%= MM.lang.s('allowsubmissionsfromdate') %></span>
+                        <time><%= MM.util.timestampToUserDate(assign.allowsubmissionsfromdate) %></time>
+                    </p>
+                <% } %>
+
+                <p>
+                <% if (assign.duedate) { %>
+                        <span><%= MM.lang.s('duedate') %></span>
+                        <time><%= MM.util.timestampToUserDate(assign.duedate) %></time>
+                <% } else { %>
+                        <%= MM.lang.s('duedateno') %>
+                <% } %>
+                </p>
+
+                <% if (assign.cutoffdate) { %>
+                    <p>
+                        <span><%= MM.lang.s('cutoffdate') %></span>
+                        <time><%= MM.util.timestampToUserDate(assign.cutoffdate) %></time>
+                    </p>
+                <% } %>
+
+                <% if (canviewsubmissions && (!submissions || submissions.length == 0)) { %>
+                    <span><%= submissions.length %> <%= MM.lang.s("submissions") %></span>
+                <% } %>
+            </div>
+        </div>
+         <!-- Empieza la parte de maestro-->
+        <% if (canviewsubmissions) { %>
+        <h3><%= MM.lang.s('submissions') %></h3>
+       <!--/*+++++++++++++++++comienza each+++++++++++++++++++++*/-->
+        <% _.each(submissions, function(submission) { %>
+
+            <% user = {'fullname': 'User with Id' + submission.userid, 'profileimageurl': ''}; %>
+            <% if (typeof users[submission.userid] != 'undefined') { %>
+                <% user = users[submission.userid]; %>
+            <% } %>
+
+            <!--/*++++++++++++++++++++++++++++++++++++++*/-->
+            <div class="post" data-assignsubmission="<%= submission.submission %>">
+                <div class="header">
+                    <img class="user-picture" src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>">
+                    <a class="author-name" href="#participant/<%= assign.course %>/<%= submission.userid %>/1" rel="author"><%= user.fullname %></a>
+                    <time><%= MM.util.timestampToUserDate(submission.timemodified) %></time>
+                    <span class="status"><%= submission.status %></span
+
+                     <% if (typeof grade != 'undefined') {  %>                    
+                        <%var qualification = qualifiArray[user.userid] %>
+                        <%var calificacion = qualifiArray[submission.userid]%>
+                        <h2><%= MM.util.formatText(qualification) %></h2
+                    <%  } else {%>  
+                            <%var calificacion = 0}%>
+
+                    <% if (typeof idGrades != 'undefined') {  %>                    
+                        <%var comentario = comments[ids[user.userid]] %>
+                    <%  } else {%>  
+                            <%var comentario = ""}%>
+
+                    
+                </div>
+                <div class="content">
+                    <p><%= MM.lang.s('attempnumber') %> <%= submission.attemptnumber %></p>
+
+
+                    <% var text = MM.plugins.assign._getSubmissionText(submission); %>
+                    <% var files = MM.plugins.assign._getSubmissionFiles(submission); %>
+                    
+
+                    <% if (text != '') { %>
+                        <p><a href="#" class="submissiontext" data-submissionid="<%= submission.id %>" data-qualification="<%=calificacion %>" data-comment="<%=comentario %>"><%= MM.lang.s('Ver Tarea') %></a></p>
+                    <% } %>
+
+                    <% if (files.length > 0) { %>
+
+                        <div class="attachments">
+                            <% _.each(files, function(file) { %>
+                            <% if (file.localpath) { %>
+                                <% var dImg = "reloadgrey"; %>
+                                <% } else { %>
+                                <% var dImg = "download"; %>
+                            <% } %>
+                            <div class="attachment media">
+                                <div class="content-actions app-icon">
+                                    <img id="downimg-<%= file.id %>" src="img/<%= dImg %>.png" class="assign-download" data-downloadurl="<%= file.fileurl %>" data-filename="<%= file.filepath %>" data-attachmentid="<%= file.id %>">
+                                </div>
+                                <div class="content-name">
+                                    <div class="img app-ico">
+                                        <img src="img/files/<%= file.icon %>" alt="img">
+                                    </div>
+                                    <div class="bd">
+                                        <% if (!file.localpath) { %>
+                                        <a id="file-<%= file.id %>" class="assign-download" href="#" data-downloadurl="<%= file.fileurl %>" data-filename="<%= file.filepath %>" data-attachmentid="<%= file.id %>">
+                                            <%= file.filepath %>
+                                        </a>
+                                        <% } else { %>
+                                        <a id="file-<%= file.id %>" href="<%= file.localpath %>" rel="external"
+                                            ><%= file.filepath %>
+                                        </a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }); %>
+                        </div>
+
+                    <% } %>
+
+                </div>
+            </div>
+            <!--/*++++++++++++++++++++++++++++++++++++++*/-->
+        <% }); %>
+        <!--/*+++++++++++++++++termina each+++++++++++++++++++++*/-->
+        <!-- Termina la parte de maestro y comienza Alumno-->
+        <% } else {  %>
+             <%var existente = 0; %>
+              <%      for (var i = 0; i < listaUsuarios.length; i++) { %>
+              <%          if (listaUsuarios[i] == '3') { %>
+               <%             existente = 1 %>
+                <%            break; %>
+                <%        } %>
+                 <%   } %>
+                <%console.log(existente);%>
+            <div data-role="content" class="ui-content">
+                <form action="" method="POST" id="formSend">
+                    <label for="txt">Texto: </label>
+                    <textarea name="txt" id= "txt"></textarea>
+                    <label for="file">A&ntildeadir archivo: </label>
+                    <input type="file" data-clear-btn="true" name="file" id="file" value="">
+                    <input type="submit" value="Enviar" data-transtion="fade">
+                </form>
+            </div>
+           <!-- <div class="centered">
+              <a href="#assign/sendAssign/<%=assign.id%>"> <button>A&ntildeadir Env&iacuteo</button></a>
+            </div>-->
+        <% } %>
+    </div>
+</div>

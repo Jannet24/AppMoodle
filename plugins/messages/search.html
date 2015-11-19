@@ -1,0 +1,14 @@
+<ul >
+    <% _.each(users, function(user) { %>
+    <li>
+        <a style="text-decoration:none" href="#messages/contact/<%= user.id %>">
+                <% if (user.profileimageurl) { %>
+                <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>">
+                <% } else { %>
+                <img src="img/userimage.png">
+                <% } %>
+                <%= user.fullname %>
+        </a>
+    </li>
+    <% }); %>
+</ul>

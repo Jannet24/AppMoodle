@@ -1,0 +1,14 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#course/contents"  data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <a href="#" onclick="MM.ocultarSecundario(); MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: right">Home</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Enviar Tarea</h1>
+</div>
+<div data-role="content" class="ui-content">
+	<form action="" method="POST">
+		<label for="txt">Texto: </label>
+		<textarea name="txt" id= "txt"></textarea>
+		<label for="file">A&ntildeadir archivo: </label>
+		<input type="file" data-clear-btn="true" name="file" id="file" value="">
+		<input type="submit" value="Enviar" data-transtion="fade">
+	</form>
+</div>

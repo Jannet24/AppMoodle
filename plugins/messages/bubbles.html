@@ -1,0 +1,30 @@
+                <% _.each(messages, function(m) { %>
+                <% if (m.smallmessage != "") { %>
+                <% var d = new Date(m.timecreated * 1000); %>
+                <% var date = d.toLocaleDateString(d,MM.lang.current, {year: 'numeric', month:'long', day: '2-digit'}); %>
+
+                <% if (date != previousDate) { %>
+                <div><center><span><%= date %></span></center></div>
+                <% }%>
+                <% previousDate = date; %>
+                <% var messageId = m.useridfrom + "-" + m.id + "-" + m.timecreated; %>
+                    <% var hour = d.toLocaleTimeString(d,MM.lang.current,{hour: '2-digit', minute:'2-digit'}); %>
+                <% if (m.useridfrom == otherUser) { %>
+  
+                            <div data-messageid="<%= messageId %>"></div>
+                     <div class="Area"><div class="text L textL"><%= MM.util.formatText(m.smallmessage, true) %>&nbsp;<%= hour %>
+                <span class="app-ico tick-green"><img width="10" src="img/received.png"></span>
+                        </div></div>
+
+                <% } else { %>
+                    
+                            <div data-messageid="<%= messageId %>"></div>
+                     <div class="Area"><div  class="text R textR"><%= MM.util.formatText(m.smallmessage, true) %>&nbsp;<%= hour %>
+                <span class="app-ico tick-green"><img width="10" src="img/received.png"></span>
+                        </div></div>
+                
+                <% } %>
+                
+                
+                <% } %>
+                <% }); %>

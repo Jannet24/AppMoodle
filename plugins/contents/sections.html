@@ -1,0 +1,75 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#" onclick="MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <h1 class="ui-title" role="heading" aria-level="1"><%= course.shortname %> - Contenido </div></h1>
+</div>
+<div data-role="navbar">
+    <ul>
+        <% _.each(courses, function(plugin) { %>
+            <li><a href="<%= plugin.menuURL%><%= courseId %>"><%= plugin.nameToShow %></a></li>
+        <%  }); %>
+    </ul>
+</div>
+</div>
+<div data-role="content" class="ui-content">
+    <% $.each(sections, function(index, section) { %>
+    <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right">
+        <% if (section.modules && section.modules.length >0) { %>
+           <h2><%= section.name%><br></h2>
+                
+           <ul data-role="listview">
+              <%  if (maestro) { %>
+                <div>
+                   <a href="#assign/create/<%= courseId %>/<%= section.id %>"><button>Nueva Tarea</button></a>
+                </div>
+             <% } %>
+
+            <% _.each(section.modules, function(module) {  console.log(module.modname);%>
+
+            <%  var plugin = MM.checkModPlugin(module.modname); %>
+
+            <%  if (plugin) { console.log("Entro a plugin "+ module.modname);%>
+
+                    <%= MM.plugins[plugin].render(courseId, index, section, module) %>
+                    <%= console.log("modulo")%>
+                    <%= console.log(MM.plugins[plugin].render(courseId, index, section, module))%>
+                    <%= console.log(module)%>
+
+                <%  return; %>
+            <% } %>
+            <li>
+
+                        <% if (module.downloaded) { %>
+                            <% if (module.modname == "folder"){ %>
+                                <a href="#course/contents/<%= courseId %>/section/<%= index %>/folder/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <% } else { %>
+                                <a href="<% print(MM.fs.getRoot() + "/" + module.contents[0].localpath); %>" rel="external" id="link-<%= module.contentid %>">
+                            <% }%>
+                        <% } else if (module.modname != "label"){ %>
+                             <% if (module.modname == "folder"){ %>
+                                <a href="#course/contents/<%= courseId %>/section/<%= index %>/folder/<%= module.contentid %>" id="link-<%= module.contentid %>"></a>
+                            <% } else if(module.webOnly){ %>
+                                <a href="<%= module.url %>" target="_blank" id="link-<%= module.contentid %>"></a>
+                            <% } else { %>
+                                <a href="#course/contents/<%= courseId %>/section/<%= index %>/download/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <% } %>
+                        <% } %>
+                        <% if (module.modname != "label"){ %>
+                                <h3><%= module.name %></h3>
+                        <% } else { %>
+                            <a class="expand-label" href="#course/contents/<%= courseId %>/section/<%= index %>/label/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <h3><%= module.name %></h3>
+                        <% } %>
+                        </a>
+
+            </li>
+            <% }); %>
+    </ul>
+
+
+        <% } %>
+        </div>
+    <% }); %>
+    
+
+
+</div>

@@ -1,0 +1,16 @@
+<div>
+	<h1><%= MM.util.formatText(title)  %><h1>
+</div>
+<div>
+	<%= text  %>
+</div>
+<div data-role="content" class="ui-content">
+	<form action="" method="POST" id="formDelivery">
+		<label>Calificación: </label>
+		<input type="number" min="50" max="100" name="calificacion" id = "calificacion" value="<%= qualification %>">
+		<label>Comentario: </label>
+		<textarea name="comentario" id= "comentario"><%= comment %></textarea>
+		<input type="submit" value="Guardar" data-transtion="fade">
+		<button onclick="window.history.back();">Cancelar</button>
+	</form>
+</div>

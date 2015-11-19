@@ -1,0 +1,18 @@
+
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#" onclick="MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <h1 class="ui-title" role="heading" aria-level="1"><%= titulo %></h1>
+</div>
+<div data-role="content">
+
+    <div id="unidad"><%
+    for (i = 0; i <= tema.length; i++) { %>
+      <h1><%=tema[i]%></h1>
+    
+     	<p><%=subtemas[i]%></p>
+     	<%}
+	
+%></div>
+   
+
+</div>

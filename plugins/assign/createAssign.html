@@ -1,0 +1,31 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#course/contents/<%=courseId%>"  data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <a href="#" onclick="MM.ocultarSecundario(); MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: right">Home</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Crear Nueva Tarea</h1>
+</div>
+<div data-role="content" class="ui-content">
+	<form action="" method="POST">
+		<label for="name">Nombre de la tarea: </label>
+		<input type="text" id="name" name="name" data-clear-btn="true" autofocus class=>
+
+		<label for="intro">Descripción:</label>
+		<textarea  rows="8" name="intro" id= "intro" class=></textarea>
+
+		<label><input type="checkbox" checked id="onlinetext">Texto en l&iacutenea</label>
+		<label><input type="checkbox" checked id="file">Env&iacuteos de archivos</label>
+
+		<label for="allowsubmissionsfromdate">Permitir envíos desde:</label>
+		<input type="date" id="allowsubmissionsfromdate" name="allowsubmissionsfromdate" data-clear-btn="true" class=>
+		<input type="time" data-clear-btn="true" id="allowtime" name="allowtime" >
+
+		<label for="duedate">Fecha de entrega:</label>
+		<input type="date" id="duedate" name="duedate" class="">
+		<input type="time" data-clear-btn="true" name="duetime" id="duetime">
+
+		<label for="grade">Puntos máximo:</label>
+		<input type="number" min="0" max="100" name="grade" id = "grade" value="100" >
+
+		<input type="submit" value="Guardar" class="saveAssign"  data-transtion="fade">
+		<inpu>
+	</form>
+       

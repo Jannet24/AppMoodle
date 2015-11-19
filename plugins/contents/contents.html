@@ -1,0 +1,59 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#" onclick="MM.mostrarPrincipal();" data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <a href="#" onclick="MM.ocultarSecundario(); MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: left">Home</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Tareas de <%= course.shortname %></div></h1>
+</div>
+
+<div data-role="content" class="ui-content">
+    <ul data-role="listview">
+    <% _.each(sections, function(section) { %>
+    <% if (section.modules && section.modules.length >0) { %>
+        <li data-role="list-divider"><%= section.name %><li>
+
+            <% _.each(section.modules, function(module) {  console.log(module.modname);%>
+
+            <%  var plugin = MM.checkModPlugin(module.modname); %>
+            <%  if (plugin) { console.log("Entro a plugin "+ module.modname);%>
+
+                <%= MM.plugins[plugin].render(courseId, sectionId, section, module) %>
+                <%  return; %>
+            <% } %>
+            <li>
+            <% if (module.downloaded) { %>
+                            <% if (module.modname == "folder"){ %>
+                                <h2>1</h2>
+                                <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/folder/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <% } else { %>
+                             <h2>2</h2>
+                                <a href="<% print(MM.fs.getRoot() + "/" + module.contents[0].localpath); %>" rel="external" id="link-<%= module.contentid %>">
+                            <% }%>
+                        <% } else if (module.modname != "label"){ %>
+                             <h2>111</h2>
+                             <% if (module.modname == "folder"){ %>
+                              <h2>222</h2>
+                                <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/folder/<%= module.contentid %>" id="link-<%= module.contentid %>"></a>
+                            <% } else if(module.webOnly){ %>
+                             <h2>444</h2>
+                                <a href="<%= module.url %>" target="_blank" id="link-<%= module.contentid %>"></a>
+                            <% } else { %>
+                             <h2>555</h2>
+                                <a href="#course/contents/<%= courseId %>/section/<%= sectionId %>/download/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <% } %>
+                        <% } %>
+                        <% if (module.modname != "label"){ %>
+                                 <h2>99</h2>
+                                <h3><%= module.name %></h3>
+                        <% } else { %>
+                         <h2>88</h2>
+                            <a class="expand-label" href="#course/contents/<%= courseId %>/section/<%= sectionId %>/label/<%= module.contentid %>" id="link-<%= module.contentid %>">
+                            <h3><%= module.name %></h3>
+                        <% } %>
+                        </a>
+
+            </li>
+            <% }); %>
+
+    <% } %>
+    <% }); %>
+    </ul>
+</div>

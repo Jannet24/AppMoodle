@@ -1,0 +1,43 @@
+<script type="text/template" id="header-icon-left-content">
+    <a href="#messages/contacts"><img src="img/ico-contacts.png"></a>
+</script>
+<div class="panel-container">
+    <% if (messages.length > 0) {%>
+    <div>
+        <ul data-role="listview"s>
+            <% _.each(messages, function(message) { %>
+            <% if (message.user != MM.config.current_site.userid) { %>
+            <% var user = contacts[message.user]; %>
+            <li >
+                <a href="#messages/conversation/<%= message.user %>">
+                    
+                        <% if (user.profileimageurl) { %>
+                        <img src="<%= MM.util.getMoodleFilePath(user.profileimageurl) %>">
+                        <% } else { %>
+                        <img src="img/userimage.png">
+                        <% } %>
+                    
+                    
+                       <%= user.fullname %>
+                        
+                        <p><br><% if (user.unread) { %>
+                        
+                        <% } else { %>
+                        
+                        <% } %>
+                        <%= MM.util.shortenText(MM.util.formatText(message.message, true), 32) %>
+                        </p>
+                </a>
+            </li>
+            <% } %>
+            <% }); %>
+        </ul>
+    </div>
+    <% } else { %>
+    <div >
+        <div >
+            <p><%= MM.lang.s("nomessagesfound") %></p>
+        </div>
+    </div>
+    <% } %>
+</div>

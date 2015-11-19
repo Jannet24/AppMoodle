@@ -1,0 +1,38 @@
+<div data-role="header" class="ui-header ui-bar-e" role="banner">
+    <a href="#" onclick="MM.mostrarMenu(); MM.cursos();" data-icon="arrow-l" data-corners="false" style="float: left">Regresar</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Foro</h1>
+</div>
+<div data-role="navbar">
+                <ul >
+                        <% _.each(courses, function(plugin) { %>
+                            <li><a href="<%= plugin.menuURL%><%= courseId %>"><%= plugin.nameToShow %></a></li>
+                        <%  }); %>
+
+                </ul>
+</div>
+                  
+                 
+<% _.each(posts, function(post) { %>
+            <div style="border:1px solid black; padding:1.5em">
+                 <%
+                    function timeConverter(UNIX_timestamp){
+                      var a = new Date(UNIX_timestamp * 1000);
+                      var months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+                      var days = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+                      var year = a.getFullYear();
+                      var month = months[a.getMonth()];
+                      var date = a.getDate();
+                      var hour = a.getHours();
+                      var min = a.getMinutes();
+                      var sec = a.getSeconds();
+                      var day = days[a.getDay()];
+                      var time = day + ' ' +date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+                      return time;
+                    }
+                 %>
+                de <%= post.userfullname %>&nbsp; - <%=timeConverter(post.created)%> 
+                <br>
+                <%=post.message %>
+            </div>  
+<%});%>
+    
